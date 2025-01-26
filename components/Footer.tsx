@@ -70,9 +70,9 @@ const Footer = () => {
       {/* Bottom Footer */}
       <div className="middle flex flex-row items-center justify-between px-4 pb-6 pt-2 xl:px-0">
         <div className="text-sm text-muted-foreground">
-          &copy; Reliant Services 2024
+          &copy; Reliant Services 2025
         </div>
-        <Link href="https://discord.com/users/734067467848253520" target="_blank">
+        <Link href="https://discord.com/users/1305825677777309740" target="_blank">
           <div className="flex cursor-pointer flex-col rounded-md px-2 py-2">
             <div className="relative z-10 text-[11px] leading-[14px]">
               Developed By
