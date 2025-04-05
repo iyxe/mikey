@@ -1,14 +1,14 @@
 export const LINKS = {
   DISCORD: "https://discord.gg/reliantt",
-  TELEGRAM: "https://t.me/reliantservices",
+  TELEGRAM: "https://t.me/",
   TWITTER: "https://x.com",
-};
+}
 
 export const NOTIFICATION = {
   showNotification: true,
   notificationText: " Shop today and use code RELEASE10 for a 10% off!",
   notificationLink: LINKS.DISCORD,
-};
+}
 
 export const LandingPageLinks = [
   {
@@ -17,7 +17,7 @@ export const LandingPageLinks = [
   },
   {
     name: "Reviews",
-    link: "https://reliant.mysellix.io/feedback",
+    link: "https://sellauth.app/feedbacks", // Updated from Sellix to SellAuth
   },
   {
     name: "Products",
@@ -35,4 +35,5 @@ export const LandingPageLinks = [
     name: "Terms",
     link: "/tos",
   },
-];
+]
+
