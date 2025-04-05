@@ -7,11 +7,15 @@ import { cn } from "@/lib/utils"
 const DisplayProducts = ({ products }: { products: any }) => {
   const productGroups = products?.data?.groups
 
-  const getProductFeatures = (product: any) => {
-    // SellAuth might store features differently, adjust as needed
-    // This assumes features are stored in a description field and separated by |
-    if (!product?.description) return []
-    return product?.description?.split("|")
+  const getProductFeatures = (productFields: []) => {
+    let features = [] as any
+
+    productFields?.map((field: any) => {
+      if (field?.name === "Features") {
+        features = field?.default?.split("|")
+      }
+    })
+    return features
   }
 
   // will set the array in ascending order of their price tag
@@ -20,15 +24,15 @@ const DisplayProducts = ({ products }: { products: any }) => {
   }
 
   const handlePurchase = (productId: string) => {
-    // Implement SellAuth purchase flow
-    // This might involve redirecting to their checkout page or using their API
-    window.open(`https://sellauth.app/checkout/${productId}`, "_blank")
+    // Redirect to SellAuth checkout
+    const shopId = "1" // Replace with your actual shop ID
+    window.open(`https://sellauth.com/checkout/${shopId}/${productId}`, "_blank")
   }
 
   return (
     <div className="px-4 mt-10">
       <div className="middle">
-        <Tabs defaultValue={productGroups[0]?.title} className="w-full flex flex-col items-center">
+        <Tabs defaultValue={productGroups?.[0]?.title} className="w-full flex flex-col items-center">
           <TabsList className="flex flex-col gap-2 sm:flex-row">
             {productGroups?.map((group: any, index: number) => (
               <TabsTrigger key={index} value={group?.title} className="w-full">
@@ -36,14 +40,14 @@ const DisplayProducts = ({ products }: { products: any }) => {
               </TabsTrigger>
             ))}
           </TabsList>
-          {productGroups.map((group: any, index: number) => (
+          {productGroups?.map((group: any, index: number) => (
             <TabsContent className="mt-5" key={index} value={group?.title}>
               <div className="grid grid-flow-row sm:grid-cols-2 md:grid-cols-3 gap-5 w-full">
                 {setProductsInAscendingOrder(group?.products_bound)?.map((product: any, index: number) => (
                   <RevealAnimation delay={index * 0.1} screenReveal={true} key={index}>
                     <div key={index} className="bg-[#1f1f20] rounded-lg p-4 w-full min-w-[308px] h-full">
                       <div className="">
-                        <div className="text-xl font-semibold">{`${product?.title || product?.name}`}</div>
+                        <div className="text-xl font-semibold">{`${product?.title}`}</div>
                         <div className="flex flex-row justify-between items-end mt-2">
                           <div className="text-3xl font-semibold brand_gradient text-transparent bg-clip-text">
                             {`$${product?.price}`}
@@ -64,7 +68,7 @@ const DisplayProducts = ({ products }: { products: any }) => {
                         <div className="w-full border-t border-[1px] border-muted-foreground/20 my-2"></div>
                         <div className="text-muted-foreground/80 text-sm">Features</div>
                         <div className="flex flex-col gap-1">
-                          {getProductFeatures(product)?.map((feature: any, index: number) => (
+                          {getProductFeatures(product?.custom_fields)?.map((feature: any, index: number) => (
                             <div key={index} className="flex flex-row items-center">
                               <DotIcon size={25} className="text-[#ec3f76]" />
                               <span className="text-sm">{feature}</span>
@@ -73,7 +77,7 @@ const DisplayProducts = ({ products }: { products: any }) => {
                         </div>
                         <div className="mt-3 brand_gradient rounded-md p-[1px]">
                           <button
-                            onClick={() => handlePurchase(product?.id || product?.uniqid)}
+                            onClick={() => handlePurchase(product?.id)}
                             type="button"
                             className="w-full rounded-md bg-[#1f1f20] py-2 text-sm hover:bg-gradient-to-tr from-[#ff4059] to-[#a73cde] duration-200"
                           >
