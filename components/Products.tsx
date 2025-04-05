@@ -27,7 +27,6 @@ const Products = async () => {
 
   return (
     <div id="products" className="pt-24 flex flex-col items-center px-4 middle">
-      {/* SellAuth checkout script would go here if they provide one */}
       <RevealAnimation screenReveal>
         <div className="flex flex-row items-center gap-2 text-sm text-transparent bg-clip-text brand_gradient">
           <ShoppingBagIcon size={16} className="text-[#e43f81]" />
